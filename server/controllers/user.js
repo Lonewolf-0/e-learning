@@ -1,5 +1,7 @@
+import sendMail from "../middlewares/sendMail.js";
 import { User } from "../models/user.js";
 import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken";
 
 export const register = async (req, res) => {
   try {
@@ -19,7 +21,7 @@ export const register = async (req, res) => {
       password: hashPassword,
     };
 
-    const otp = Math.floor(Math.random * 1000000);
+    const otp = Math.floor(Math.random() * 1000000);
 
     const activationToken = jwt.sign(
       {
@@ -35,6 +37,12 @@ export const register = async (req, res) => {
       name,
       otp,
     };
+
+    await sendMail(email, "E Learning", data);
+
+    res.status(200).json({
+      message: "OTP sent to your mail",
+    });
   } catch (error) {
     res.status(500).json({
       message: error.message,
