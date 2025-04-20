@@ -15,3 +15,13 @@ export const isAuth = async (req, res, next) => {
     res.status(500).json({ message: "Login First" });
   }
 };
+
+export const isAdmin = (req, res, next) => {
+  try {
+    if (!req.user || req.user.role !== "admin")
+      return res.status(403).json({ message: "You are not admin!!" });
+    next();
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
