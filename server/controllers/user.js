@@ -1,6 +1,6 @@
 import sendMail from "../middlewares/sendMail.js";
 import TryCatch from "../middlewares/TryCatch.js";
-import { User } from "../models/user.js";
+import { User } from "../models/User.js";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 
@@ -102,5 +102,5 @@ export const loginUser = TryCatch(async (req, res) => {
 
 export const myProfile = TryCatch(async (req, res) => {
   const user = await User.findById(req.user._id);
-  res.json({user});
+  res.json({ user });
 });
