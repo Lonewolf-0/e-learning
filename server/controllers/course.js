@@ -40,3 +40,5 @@ export const fetchLecture = TryCatch(async (req, res) => {
 
   res.json({ lecture });
 });
+
+
