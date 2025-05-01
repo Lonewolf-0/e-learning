@@ -10,7 +10,7 @@ const Footer = () => {
     <footer>
       <div className="footer-content">
         <p>
-          &copy; {currentYear} Your Elearning Platform. All rights reserved.{" "}
+          &copy; {currentYear} Your E-learning Platform. All rights reserved.{" "}
           <br />
           Made with ❤️ <a href="https://github.com/lonewolf-0">Aryan Tyagi</a>
         </p>
