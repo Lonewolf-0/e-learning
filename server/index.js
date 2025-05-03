@@ -17,6 +17,9 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 
+// Serve static files from the uploads directory
+app.use('/uploads', express.static('uploads'));
+
 const port = process.env.PORT;
 
 app.get("/", (req, res) => {
