@@ -20,14 +20,10 @@ const Lecture = ({ user }) => {
   const [videoPreview, setVideoPreview] = useState("");
   const [btnLoading, setBtnLoading] = useState(false);
 
-  React.useEffect(() => {
-    if (user && user.role !== "admin" && !user.subscription.includes(params.id)) {
-      navigate("/");
-    }
-    // eslint-disable-next-line
-  }, [user, params.id, navigate]);
+  if (user && user.role !== "admin" && !user.subscription.includes(params.id))
+    return navigate("/");
 
-  const fetchLectures = React.useCallback(async () => {
+  async function fetchLectures() {
     try {
       const { data } = await axios.get(`${server}/api/lectures/${params.id}`, {
         headers: {
@@ -40,7 +36,7 @@ const Lecture = ({ user }) => {
       console.log(error);
       setLoading(false);
     }
-  }, [params.id]);
+  }
 
   async function fetchLecture(id) {
     try {
@@ -111,12 +107,12 @@ const Lecture = ({ user }) => {
         });
         toast.success(data.message);
         fetchLectures();
-
+        
       } catch (error) {
         toast.error(error.response.data.message);
-  useEffect(() => {
-    fetchLectures();
-  }, [fetchLectures]);
+      }
+    }
+  };
 
   useEffect(() => {
     fetchLectures();
