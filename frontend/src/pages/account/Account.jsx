@@ -38,6 +38,16 @@ const Account = ({ user }) => {
               Dashboard
             </button>
             <br />
+            {user.role === "admin" && (
+              <button
+                onClick={() => navigate(`/admin/dashboard`)}
+                className="common-btn"
+              >
+                <MdDashboard />
+                Admin Dashboard
+              </button>
+            )}
+            <br />
             <button
               onClick={logoutHandler}
               className="common-btn"
