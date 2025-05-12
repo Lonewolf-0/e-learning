@@ -184,6 +184,7 @@ const Lecture = ({ user }) => {
                     {videoPreview && (
                       <video src={videoPreview} width={300} controls></video>
                     )}
+                    <br />
                     <button
                       disabled={btnLoading}
                       type="submit"

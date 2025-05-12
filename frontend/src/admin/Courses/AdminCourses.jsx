@@ -5,6 +5,9 @@ import { CourseData } from "../../context/CourseContext";
 import CourseCard from "../../components/coursecard/CourseCard";
 import { useNavigate } from "react-router-dom";
 import "./admincourses.css";
+import toast from "react-hot-toast";
+import axios from "axios";
+import { server } from "../../main";
 
 const categories = [
   "Web Development",
@@ -41,6 +44,43 @@ const AdminCourses = ({ user }) => {
       setImage(file);
     };
   };
+
+  const submitHandler = async (e) => {
+    e.preventDefault();
+    setBtnLoading(true);
+    const myForm = new FormData();
+    myForm.append("title", title);
+    myForm.append("description", description);
+    myForm.append("category", category);
+    myForm.append("price", price);
+    myForm.append("createdBy", createdBy);
+    myForm.append("duration", duration);
+    myForm.append("file", image);
+
+    try {
+      const { data } = await axios.post(`${server}/api/course/new`, myForm, {
+        headers: {
+          token: localStorage.getItem("token"),
+        },
+      });
+
+      toast.success(data.message);
+      setBtnLoading(false);
+      await fetchCourses();
+      setTitle("");
+      setImage("");
+      setDescription("");
+      setDuration("");
+      setImagePreview("");
+      setCategory("");
+      setCreatedBy("");
+      setPrice("");
+
+    } catch (error) {
+      toast.error(error.response.data.message);
+    }
+  };
+
   return (
     <Layout>
       <div className="admin-courses">
@@ -60,7 +100,7 @@ const AdminCourses = ({ user }) => {
           <div className="add-course">
             <div className="course-form">
               <h2>Add Course</h2>
-              <form action="">
+              <form onSubmit={submitHandler}>
                 <label htmlFor="text">Title</label>
                 <input
                   type="text"
