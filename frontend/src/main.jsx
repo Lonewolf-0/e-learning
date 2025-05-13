@@ -4,13 +4,14 @@ import App from "./App.jsx";
 import { UserContextProvider } from "./context/UserContext.jsx";
 import { CourseContextProvider } from "./context/CourseContext.jsx";
 
-export const server = "http://localhost:5000";
+// Use import.meta.env to access the environment variable in Vite
+export const server = import.meta.env.VITE_REACT_APP_SERVER_URL;
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
     <UserContextProvider>
       <CourseContextProvider>
-        <App/>
+        <App />
       </CourseContextProvider>
     </UserContextProvider>
   </StrictMode>
