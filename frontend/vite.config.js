@@ -9,6 +9,7 @@ export default defineConfig(({ mode }) => {
     server: {
       host: "0.0.0.0", // Bind to 0.0.0.0 for Render
       port: parseInt(env.PORT) || 10000, // Use PORT from environment or fallback to 10000
+      allowedHosts: ["e-learning-kxzr.onrender.com"], // Allow the Render host
     },
   };
 });
